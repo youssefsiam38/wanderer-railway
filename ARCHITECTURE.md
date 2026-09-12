@@ -84,6 +84,23 @@ the schema on start. `/pb_data` is the thing to back up.
 Each Railway service gets one volume, which matches Railway's one-volume-per-service limit. Neither
 stateful service can run with replicas.
 
+## Listening addresses
+
+Railway's private network resolves `*.railway.internal` to both IPv4 and IPv6 addresses, and none of
+the three images binds a dual-stack socket out of the box:
+
+| Service | Default | What the template does |
+|---|---|---|
+| `wanderer` | `0.0.0.0:3000` | `HOST=::`, `PORT=3000` (the wrapper passes both through) |
+| `db` | `--http=0.0.0.0:8090` baked into the image entrypoint | start command `/pocketbase serve --http=[::]:8090 --dir=/pb_data` |
+| `search` | `0.0.0.0:7700` | `MEILI_HTTP_ADDR=[::]:7700` |
+
+The PocketBase image is built `FROM scratch` and contains no shell, but Railway execs a custom start
+command directly rather than through `sh -c`, so the override works.
+
+`PORT` matters for a second reason: Railway injects `PORT=8080` when the service does not set it,
+while the generated domain points at the port you chose. Pinning `PORT=3000` keeps the two in step.
+
 ## Health and readiness
 
 The public service's healthcheck is `GET /` on port 3000. That route is served by SvelteKit only

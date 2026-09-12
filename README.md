@@ -8,7 +8,9 @@ It speaks ActivityPub, so instances can follow each other. This repository is a
 **not affiliated with the wanderer project**.
 
 <!-- DEPLOY_BUTTON_START -->
-Deploy button is added once the template is published.
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/wanderer)
+
+Template page: https://railway.com/deploy/wanderer
 <!-- DEPLOY_BUTTON_END -->
 
 > **Licence.** wanderer is **AGPL-3.0**. This template deploys the upstream release unmodified.
@@ -28,7 +30,7 @@ Deploy button is added once the template is published.
 | Component | Version |
 |---|---|
 | wanderer | v0.20.0 |
-| Wrapper | see [releases](https://github.com/youssefsiam38/wanderer-railway/releases) |
+| Wrapper | v1.0.0 — `ghcr.io/youssefsiam38/wanderer-railway:1.0.0` ([releases](https://github.com/youssefsiam38/wanderer-railway/releases)) |
 
 Why a wrapper and why three services: [ARCHITECTURE.md](ARCHITECTURE.md). In one sentence: wanderer
 has open registration by default, so the wrapper creates your account in PocketBase **before** the
@@ -64,11 +66,14 @@ public frontend starts, which lets the template ship with registration switched 
 | `BODY_SIZE_LIMIT` | no | `Infinity` | SvelteKit upload limit. Photos and GPX archives exceed the default quickly. |
 | `PUBLIC_OVERPASS_API_URL`, `PUBLIC_VALHALLA_URL` | no | unset | Optional third-party routing/POI services; see upstream docs. |
 | `APP_READY_TIMEOUT` | no | `300` | Wrapper: seconds to wait for PocketBase before giving up. |
+| `PORT` | no | `3000` | Port the frontend listens on. Must match the service's domain target port. |
+| `HOST` | no | `::` | Listen address. `::` covers both IPv4 and IPv6 on Railway's network. |
 | `SMTP_*` | no | unset | Outgoing mail for password resets and notifications. Without it, password reset does not work. |
 
 The `db` service needs `MEILI_URL`, `MEILI_MASTER_KEY`, `POCKETBASE_ENCRYPTION_KEY`,
-`POCKETBASE_PROXY_SECRET` and `ORIGIN`; the `search` service needs `MEILI_MASTER_KEY`. The template
-wires all of them.
+`POCKETBASE_PROXY_SECRET` and `ORIGIN`, plus a start command that binds PocketBase to `[::]`; the
+`search` service needs `MEILI_MASTER_KEY` and `MEILI_HTTP_ADDR=[::]:7700`. The template wires all of
+them; [RAILWAY_TEMPLATE.md](RAILWAY_TEMPLATE.md) has the exact values.
 
 ## Persistent paths
 

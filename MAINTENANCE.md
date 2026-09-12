@@ -19,7 +19,8 @@
    ```bash
    railway templates update --code wanderer
    ```
-   or patch the service image through the template editor. Railway's template generator rejects
+   or patch the service image through the template editor. The marketplace overview lives in
+   `marketplace/OVERVIEW.md`; Railway validates its section headings, so keep them. Railway's template generator rejects
    `@sha256:` references, so templates use the version tag; the tag is immutable in practice
    because releases never re-push an existing tag.
 7. Write release notes recording the wrapper version, the upstream version and the image digest.
