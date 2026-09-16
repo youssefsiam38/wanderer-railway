@@ -30,7 +30,7 @@ Template page: https://railway.com/deploy/wanderer
 | Component | Version |
 |---|---|
 | wanderer | v0.20.0 |
-| Wrapper | v1.0.0 — `ghcr.io/youssefsiam38/wanderer-railway:1.0.0` ([releases](https://github.com/youssefsiam38/wanderer-railway/releases)) |
+| Wrapper | v1.0.1 — `ghcr.io/youssefsiam38/wanderer-railway:1.0.1`, index digest `sha256:3558cc5eadabb32c36c77313c8ec0b3480ab7867faf247e1e96cbb8a29af51fa` ([releases](https://github.com/youssefsiam38/wanderer-railway/releases)) |
 
 Why a wrapper and why three services: [ARCHITECTURE.md](ARCHITECTURE.md). In one sentence: wanderer
 has open registration by default, so the wrapper creates your account in PocketBase **before** the
