@@ -1,8 +1,9 @@
 // Creates wanderer's first user account directly in PocketBase, before the public frontend starts,
 // so the template can ship with registration disabled and still give the deployer an account.
 // Idempotent: does nothing when any user already exists. Never prints values.
-const log = (m) => process.stderr.write(`[wanderer-railway] ${m}\n`)
-const fail = (m) => { log(`FATAL: ${m}`); process.exit(1) }
+// stdout, not stderr: Railway shows anything on stderr as an error, and these are routine.
+const log = (m) => process.stdout.write(`[wanderer-railway] ${m}\n`)
+const fail = (m) => { process.stderr.write(`[wanderer-railway] FATAL: ${m}\n`); process.exit(1) }
 
 const pb = (process.env.PUBLIC_POCKETBASE_URL || "").replace(/\/+$/, "")
 const username = (process.env.WANDERER_OWNER_USERNAME || "").trim()

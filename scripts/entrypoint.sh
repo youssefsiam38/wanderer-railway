@@ -7,8 +7,10 @@
 #   3. exec the upstream start command
 set -u
 
-log()  { printf '[wanderer-railway] %s\n' "$*" >&2; }
-fail() { log "FATAL: $*"; exit 1; }
+# Railway colours a log line by the stream it arrived on, so routine start-up messages go to stdout
+# and only failures go to stderr; otherwise the whole first boot is shown to the deployer in red.
+log()  { printf '[wanderer-railway] %s\n' "$*"; }
+fail() { printf '[wanderer-railway] FATAL: %s\n' "$*" >&2; exit 1; }
 
 : "${APP_READY_TIMEOUT:=300}"
 : "${PORT:=3000}"

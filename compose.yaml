@@ -65,7 +65,7 @@ services:
       WANDERER_OWNER_PASSWORD: local-test-only-owner-password
       APP_READY_TIMEOUT: ${APP_READY_TIMEOUT:-300}
     ports:
-      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:${WANDERER_TEST_PORT:-3000}:3000'
 
 volumes:
   meili:
